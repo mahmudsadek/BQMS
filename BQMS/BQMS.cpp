@@ -44,6 +44,8 @@ int main()
 		new Customer("Ahmed",53,REGULER,10,2),
 		new Customer("ibrahem",62,PLATINUM,11,33),
 		new Customer("Taha",23,PLATINUM,12,14),
+		new Customer("Taha",69,PLATINUM,12,14),
+
 	};
 	
 	
