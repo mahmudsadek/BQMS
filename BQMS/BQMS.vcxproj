@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AccountType.cpp" />
+    <ClCompile Include="Application.cpp" />
     <ClCompile Include="Bank.cpp" />
     <ClCompile Include="BQMS.cpp" />
     <ClCompile Include="customer.cpp" />
@@ -135,6 +136,7 @@
     <ClCompile Include="Taller.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Application.h" />
     <ClInclude Include="Bank.h" />
     <ClInclude Include="Comparer.h" />
     <ClInclude Include="customer.h" />
