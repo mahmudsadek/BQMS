@@ -27,10 +27,10 @@
     <ClCompile Include="Queue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Priority.cpp">
+    <ClCompile Include="Taller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Taller.cpp">
+    <ClCompile Include="Bank.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -45,6 +45,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Taller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bank.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Comparer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

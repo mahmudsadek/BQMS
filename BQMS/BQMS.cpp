@@ -10,27 +10,7 @@ using namespace std;
 
 int Taller::count = 0;
 
-static Customer* AddCustomer()
-{
-	string name;
-	cout << "Enter Name :";
-	cin >> name;
-	int age;
-	cout << "Enter Age :";
-	cin >> age;
-	AccountType acc;
-	int choice;
-	cout << "Enter AccType [ 1 = Platinum , 2 = Gold , 3 = Selver , 4 = Reguler(Defult) ] : ";
-	cin >> choice;
-	choice == 1 ? acc = PLATINUM : choice == 2 ? acc = GOLD : choice == 3 ? acc = SELVER : acc = REGULER;
-	int arrTimeHour;
-	cout << "Enter Arrivaing Time hour : ";
-	cin >> arrTimeHour;
-	int arrTimeMin;
-	cout << "Enter Arrivaing Time hour : ";
-	cin >> arrTimeMin;
-	return new Customer(name, age, acc, arrTimeHour, arrTimeMin);
-}
+
 
 
 int main()
