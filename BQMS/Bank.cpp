@@ -35,6 +35,7 @@ Bank::Bank()
     {
         tallers.push_back(new Taller());
     }
+    totalWaitingTimeForCustomers = 0;
 }
 
 void Bank::AddTaller()
@@ -104,9 +105,20 @@ void Bank::CustomerTallerInteraction()
     }
 }
 
+std::vector<int> Bank::AverageServiceTime()
+{
+    std::vector<int> avgServiceTime;
+    for (int i = 0; i < tallers.size(); i++)
+    {
+        int AVG  = tallers[i]->TotalServingTime() / tallers[i]->NumberOfServiedCustomers();
+        avgServiceTime.push_back(AVG);
+    }
+    return avgServiceTime;
+}
+
 int Bank::AverageWaitingTime()
 {
-    return totalWaitingTimeForCustomers / Customers.size();
+    return totalWaitingTimeForCustomers / (int)Customers.size();
 }
 
 

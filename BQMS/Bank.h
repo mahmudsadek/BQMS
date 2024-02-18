@@ -20,5 +20,6 @@ public:
 	void AddCustomersFromFile();
 	void CustomerTallerInteraction();
 	int AverageWaitingTime();
+	std::vector<int> AverageServiceTime();
 };
 
