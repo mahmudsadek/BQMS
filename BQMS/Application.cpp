@@ -49,12 +49,15 @@ void Application::Run()
 {
 	while (true)
 	{
-		std::cout << std::setw(40) << std::setfill('*') << "" << std::endl;
-		std::cout << std::setw(40) << std::setfill(' ') << "BANK QUEUE SYSTEM" << std::endl;
-		std::cout << std::setw(40) << std::setfill('*') << "" << std::endl;
+		std::cout << std::setw(50) << std::setfill('*') << "" << std::endl;
+		std::cout << std::setw(30) << std::setfill(' ') << "BANK QUEUE SYSTEM" << std::endl;
+		std::cout << std::setw(50) << std::setfill('*') << "" << std::endl;
 		int key;
-		cout << "1 - ADD CUSTOMER      : \n\n";
-		cout << "2 - DISPLAY CUSTOMERS : \n\n";
+		cout << endl;
+		cout << std::setw(35) <<  std::setfill(' ') <<  "1 - ADD CUSTOMER     \n\n";
+		cout << std::setw(35) << "2 - ADD CUSTOMERS FROM FILE \n\n";
+		cout << std::setw(35) << "3 - DISPLAY CUSTOMERS \n\n";
+
 		cin >> key;
 		switch (key)
 		{
@@ -62,6 +65,9 @@ void Application::Run()
 			AddCustomer();
 			break;
 		case 2:
+			bank->AddCustomersFromFile();
+			break;
+		case 3:
 			DisplayCustomers();
 			break;
 		default:
