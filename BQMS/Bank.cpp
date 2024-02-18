@@ -93,6 +93,7 @@ void Bank::CustomerTallerInteraction()
             if (tallers[i]->IsFree())
             {
                 tallers[i]->Serve(customer);
+                totalWaitingTimeForCustomers += customer->getWitingTime();
             }
             else
             {
@@ -101,6 +102,11 @@ void Bank::CustomerTallerInteraction()
             }
         }
     }
+}
+
+int Bank::AverageWaitingTime()
+{
+    return totalWaitingTimeForCustomers / Customers.size();
 }
 
 

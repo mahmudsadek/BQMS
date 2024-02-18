@@ -10,6 +10,7 @@ class Bank
 private:
 	std::vector<Taller*> tallers;
 	std::priority_queue<Customer*, std::vector<Customer*>, Compare> Customers;
+	int totalWaitingTimeForCustomers;
 	void DecreaseServiceTimeForTellers();
 public:
 	Bank();
@@ -18,5 +19,6 @@ public:
 	std::priority_queue<Customer*, std::vector<Customer*>, Compare> getCustomers();
 	void AddCustomersFromFile();
 	void CustomerTallerInteraction();
+	int AverageWaitingTime();
 };
 
