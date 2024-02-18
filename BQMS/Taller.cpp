@@ -3,12 +3,17 @@
 Taller::Taller()
 {
 	IsFree(true);
+	CurrentServingTime(0);
+	TotalServingTime(0);
 	number = ++Taller::count;
 }
 
 void Taller::Serve(Customer* customer)
 {
-		
+	IsFree(false);
+	int servingTime = 10 + (rand() % 40);
+	CurrentServingTime(servingTime);
+	customer->setServiceTime(servingTime);
 }
 
 void Taller::IsFree(bool value)
@@ -19,4 +24,29 @@ void Taller::IsFree(bool value)
 bool Taller::IsFree() const
 {
 	return isFree;
+}
+
+void Taller::TotalServingTime(int time)
+{
+	totalServingTime += time;
+}
+
+int Taller::TotalServingTime() const
+{
+	return totalServingTime;
+}
+
+int Taller::CurrentServingTime() const
+{
+	return currentServingTime;
+}
+
+void Taller::CurrentServingTime(int time)
+{
+	currentServingTime = time;
+}
+
+void Taller::DecreaseCurrentServingTime()
+{
+	currentServingTime--;
 }
