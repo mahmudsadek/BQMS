@@ -8,8 +8,33 @@ void Bank::AddCustomer(std::string name, int age, AccountType accType, int arrTi
 	Customers.push(new Customer(name,age,accType,arrTimeHour,arrTimeMin));
 }
 
+void Bank::DecreaseServiceTimeForTellers()
+{
+    bool flag = true;
+    while (flag)
+    {
+        int i = 0;
+        while(flag && i < 4)
+        {
+            if (tallers[i]->CurrentServingTime() > 0)
+                tallers[i]->DecreaseCurrentServingTime();
+
+            if (tallers[i]->CurrentServingTime() == 0)
+            {
+                tallers[i]->IsFree(true);
+                flag = false;
+            }
+            i++;
+        }
+    }
+}
+
 Bank::Bank()
 {
+    for (int i = 0; i < 4; i++)
+    {
+        tallers.push_back(new Taller());
+    }
 }
 
 void Bank::AddTaller()
@@ -53,6 +78,28 @@ void Bank::AddCustomersFromFile()
     if (!CustomersData.eof())
     {
         std::cerr << "Fooey!\n";
+    }
+}
+
+void Bank::CustomerTallerInteraction()
+{
+    std::priority_queue<Customer*, std::vector<Customer*>, Compare> temp = Customers;
+    while (!temp.empty())
+    {
+        Customer* customer = temp.top();
+        temp.pop();
+        for (int i = 0; i < tallers.size(); i++)
+        {
+            if (tallers[i]->IsFree())
+            {
+                tallers[i]->Serve(customer);
+            }
+            else
+            {
+                DecreaseServiceTimeForTellers();
+                CustomerTallerInteraction();
+            }
+        }
     }
 }
 
