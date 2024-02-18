@@ -16,6 +16,7 @@ void Taller::Serve(Customer* customer)
 	customer->setServiceTime(servingTime);
 	CurrentServingTime(servingTime);
 	TotalServingTime(servingTime);
+	IncrementnumberOfServiedCustomers();
 }
 
 void Taller::IsFree(bool value)
