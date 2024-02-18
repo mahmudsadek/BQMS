@@ -82,7 +82,7 @@ Customer::Customer(std::string name, int age,AccountType acc, int HOUR , int MIN
 		 priority += 3;
  }
 
- void Customer::setServiceTime()
+ void Customer::setServiceTime(int time)
  {
-	 ServiceTime = 2 + (rand() % 50);
+	 ServiceTime = time;
  }
