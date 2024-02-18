@@ -6,13 +6,15 @@ public:
     {
         if (A->getArrivingTime() > B->getArrivingTime() && A->getArrivingTime() - B->getArrivingTime() < 10)
         {
-            if (A->getPriority() > B->getPriority())
+            if (A->getPriority() >= B->getPriority())
                 return true;
             else
                 return false;
         }
         else
         {
+            if (A->getArrivingTime() - B->getArrivingTime() > 10)
+                return true;
             return false;
         }
     }
