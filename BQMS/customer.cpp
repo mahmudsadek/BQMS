@@ -10,7 +10,6 @@ Customer::Customer(std::string name, int age,AccountType acc, int HOUR , int MIN
 	 setAccType(acc);
 	 setPriority();
 	 setArrivingTime(HOUR, MIN);
-	 setServiceTime();
  }
 
  void Customer::setAccType(AccountType acc) {
