@@ -12,6 +12,7 @@ Taller::Taller()
 void Taller::Serve(Customer* customer)
 {
 	IsFree(false);
+	customer->setWaitingTime(customer->getArrivingTime() - (customer->getArrivingTime() + TotalServingTime()));
 	int servingTime = 10 + (rand() % 40);
 	customer->setServiceTime(servingTime);
 	CurrentServingTime(servingTime);
