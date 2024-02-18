@@ -4,6 +4,16 @@ class Compare {
 public:
     bool operator()(const Customer* A, const Customer* B)
     {
-        return A->getPriority() < B->getPriority();
+        if (A->getArrivingTime() > B->getArrivingTime() && A->getArrivingTime() - B->getArrivingTime() < 10)
+        {
+            if (A->getPriority() > B->getPriority())
+                return true;
+            else
+                return false;
+        }
+        else
+        {
+            return false;
+        }
     }
 };
