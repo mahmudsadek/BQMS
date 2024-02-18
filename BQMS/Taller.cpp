@@ -12,8 +12,9 @@ void Taller::Serve(Customer* customer)
 {
 	IsFree(false);
 	int servingTime = 10 + (rand() % 40);
-	CurrentServingTime(servingTime);
 	customer->setServiceTime(servingTime);
+	CurrentServingTime(servingTime);
+	TotalServingTime(servingTime);
 }
 
 void Taller::IsFree(bool value)
