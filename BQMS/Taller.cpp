@@ -5,6 +5,7 @@ Taller::Taller()
 	IsFree(true);
 	CurrentServingTime(0);
 	TotalServingTime(0);
+	numberOfServiedCustomers = 0;
 	number = ++Taller::count;
 }
 
@@ -50,4 +51,14 @@ void Taller::CurrentServingTime(int time)
 void Taller::DecreaseCurrentServingTime()
 {
 	currentServingTime--;
+}
+
+void Taller::IncrementnumberOfServiedCustomers()
+{
+	numberOfServiedCustomers++;
+}
+
+int Taller::NumberOfServiedCustomers() const
+{
+	return numberOfServiedCustomers;
 }
