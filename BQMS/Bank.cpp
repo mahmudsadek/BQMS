@@ -39,9 +39,10 @@ void Bank::FindingFreeTaller(std::priority_queue<Customer*, std::vector<Customer
         {
             if (tallers[i]->IsFree())
             {
-                temp.pop();
+                customer = temp.top();
                 tallers[i]->Serve(customer);
                 totalWaitingTimeForCustomers += customer->getWitingTime();
+                temp.pop();
             }
             else
             {
