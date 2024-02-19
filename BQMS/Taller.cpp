@@ -4,7 +4,7 @@ Taller::Taller()
 {
 	IsFree(true);
 	CurrentServingTime(0);
-	TotalServingTime(0);
+	totalServingTime = 0;
 	numberOfServiedCustomers = 0;
 	number = ++Taller::count;
 }
@@ -12,7 +12,7 @@ Taller::Taller()
 void Taller::Serve(Customer* customer)
 {
 	IsFree(false);
-	customer->setWaitingTime(customer->getArrivingTime() - (customer->getArrivingTime() + TotalServingTime()));
+	customer->setWaitingTime( (customer->getArrivingTime() + TotalServingTime()) - customer->getArrivingTime());
 	int servingTime = 10 + (rand() % 40);
 	customer->setServiceTime(servingTime);
 	CurrentServingTime(servingTime);
