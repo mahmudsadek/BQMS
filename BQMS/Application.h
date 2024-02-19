@@ -10,7 +10,9 @@ private:
 public:
 	Application();
 	void DisplayCustomers();
+	void DisplayCustomers(bool flag);
 	void AddCustomer();
+	void DisplayReport();
 	void Run();
 };
 
