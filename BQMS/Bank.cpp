@@ -29,6 +29,30 @@ void Bank::DecreaseServiceTimeForTellers()
     }
 }
 
+void Bank::FindingFreeTaller(std::priority_queue<Customer*, std::vector<Customer*>, Compare> &temp)
+{
+    while (!temp.empty())
+    {
+        Customer* customer = temp.top();
+        int i = 0;
+        while(!temp.empty() && i < 4)
+        {
+            if (tallers[i]->IsFree())
+            {
+                temp.pop();
+                tallers[i]->Serve(customer);
+                totalWaitingTimeForCustomers += customer->getWitingTime();
+            }
+            else
+            {
+                DecreaseServiceTimeForTellers();
+                FindingFreeTaller(temp);
+            }
+            i++;
+        }
+    }
+}
+
 Bank::Bank()
 {
     for (int i = 0; i < 4; i++)
@@ -85,24 +109,7 @@ void Bank::AddCustomersFromFile()
 void Bank::CustomerTallerInteraction()
 {
     std::priority_queue<Customer*, std::vector<Customer*>, Compare> temp = Customers;
-    while (!temp.empty())
-    {
-        Customer* customer = temp.top();
-        temp.pop();
-        for (int i = 0; i < tallers.size(); i++)
-        {
-            if (tallers[i]->IsFree())
-            {
-                tallers[i]->Serve(customer);
-                totalWaitingTimeForCustomers += customer->getWitingTime();
-            }
-            else
-            {
-                DecreaseServiceTimeForTellers();
-                CustomerTallerInteraction();
-            }
-        }
-    }
+    FindingFreeTaller(temp);
 }
 
 std::vector<int> Bank::AverageServiceTime()

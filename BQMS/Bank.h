@@ -12,6 +12,7 @@ private:
 	std::priority_queue<Customer*, std::vector<Customer*>, Compare> Customers;
 	int totalWaitingTimeForCustomers;
 	void DecreaseServiceTimeForTellers();
+	void FindingFreeTaller(std::priority_queue<Customer*, std::vector<Customer*>, Compare> &Customers);
 public:
 	Bank();
 	void AddCustomer(std::string name, int age, AccountType accType, int arrTimeHour, int arrTimeMin);
