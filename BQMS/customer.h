@@ -12,6 +12,7 @@ private:
 	int WaitingTime;
 	int ServiceTime;
 	void setPriority();
+	int tallerNumber;
 public:
 	Customer(std::string name, int age, AccountType acc,int HOUR, int MIN);
 	void setAccType(AccountType acc);
@@ -28,5 +29,7 @@ public:
 	void setWaitingTime(int witingTime);
 	int getWitingTime() const;
 	void setServiceTime(int time);
+	void TallerNumber(int n);
+	int TallerNumber() const;
 };
 

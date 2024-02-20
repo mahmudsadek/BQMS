@@ -85,3 +85,13 @@ Customer::Customer(std::string name, int age,AccountType acc, int HOUR , int MIN
  {
 	 ServiceTime = time;
  }
+
+ void Customer::TallerNumber(int n)
+ {
+	 tallerNumber = n;
+ }
+
+ int Customer::TallerNumber() const
+ {
+	 return tallerNumber;
+ }
