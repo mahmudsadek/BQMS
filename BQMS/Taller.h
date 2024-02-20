@@ -9,6 +9,7 @@ private:
 	int currentServingTime;
 	int totalServingTime;
 	int numberOfServiedCustomers;
+	int customerLeveingTime;
 public:
 	Taller();
 	bool IsFree() const;
@@ -21,6 +22,9 @@ public:
 	void DecreaseCurrentServingTime();
 	int NumberOfServiedCustomers() const;
 	void IncrementnumberOfServiedCustomers();
+
+	void CustomerLeveingTime(int time);
+	int CustomerLeveingTime() const;
 
 };
 

@@ -12,12 +12,23 @@ Taller::Taller()
 void Taller::Serve(Customer* customer)
 {
 	IsFree(false);
-	customer->setWaitingTime( (customer->getArrivingTime() + TotalServingTime()) - customer->getArrivingTime());
+	if (customer->getArrivingTime() > CustomerLeveingTime())
+	{
+		customer->setWaitingTime(0);
+	}
+	else
+	{
+		customer->setWaitingTime(CustomerLeveingTime() - customer->getArrivingTime());
+	}
+	//customer->setWaitingTime( (customer->getArrivingTime() + TotalServingTime()) - customer->getArrivingTime());
 	int servingTime = 10 + (rand() % 40);
 	customer->setServiceTime(servingTime);
+	customer->TallerNumber(number);
 	CurrentServingTime(servingTime);
 	TotalServingTime(servingTime);
+	CustomerLeveingTime(customer->getArrivingTime() + customer->getServiceTime());
 	IncrementnumberOfServiedCustomers();
+	
 }
 
 void Taller::IsFree(bool value)
@@ -58,6 +69,16 @@ void Taller::DecreaseCurrentServingTime()
 void Taller::IncrementnumberOfServiedCustomers()
 {
 	numberOfServiedCustomers++;
+}
+
+void Taller::CustomerLeveingTime(int time)
+{
+	customerLeveingTime = time;
+}
+
+int Taller::CustomerLeveingTime() const
+{
+	return customerLeveingTime;
 }
 
 int Taller::NumberOfServiedCustomers() const
