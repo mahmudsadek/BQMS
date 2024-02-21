@@ -2,7 +2,8 @@
 #include <cmath>
 #include "customer.h"
 #include <cstdlib> 
-
+#include <string>
+#include "Utility.h"
 
 Customer::Customer(std::string name, int age,AccountType acc, int HOUR , int MIN) {
 	 setName(name);
@@ -94,4 +95,19 @@ Customer::Customer(std::string name, int age,AccountType acc, int HOUR , int MIN
  int Customer::TallerNumber() const
  {
 	 return tallerNumber;
+ }
+
+ std::string Customer::toString()
+ {
+	 std::string name = getName();
+	 std::string age = std::to_string(getAge());
+	 std::string arrive = Utility::GetInHourFormat(getArrivingTime());
+	 std::string wait = std::to_string(getWitingTime());
+	 std::string priorty = std::to_string(getPriority());
+	 std::string serive = std::to_string(getServiceTime());
+	 int leavetime = getServiceTime() + getWitingTime() + getArrivingTime();
+	 std::string leave = Utility::GetInHourFormat(leavetime);
+	 std::string taller = std::to_string(TallerNumber());
+
+	 return name + "\t\t " + age + "\t " + priorty + "\t\t" + arrive + "\t\t" + wait + "\t\t" + serive + "\t\t" + leave + "\t\t" + taller + "\t   |";
  }

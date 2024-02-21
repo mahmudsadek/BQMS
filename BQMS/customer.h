@@ -31,5 +31,6 @@ public:
 	void setServiceTime(int time);
 	void TallerNumber(int n);
 	int TallerNumber() const;
+	std::string toString();
 };
 
