@@ -126,10 +126,48 @@ std::vector<int> Bank::AverageServiceTime()
     return avgServiceTime;
 }
 
+int Bank::TotalWaitingTimeForCustomers() const
+{
+    return totalWaitingTimeForCustomers;
+}
+
+int Bank::TotalServiceTime() const
+{
+    int servicetime = 0;
+    for (int i = 0; i < tallers.size(); i++)
+    {
+        servicetime += tallers[i]->TotalServingTime();
+    }
+    return servicetime;
+}
+
+int Bank::avgServiceTimeForAll() const
+{
+
+    return TotalServiceTime()/Customers.size();
+}
+
 int Bank::AverageWaitingTime()
 {
     return totalWaitingTimeForCustomers / (int)Customers.size();
 }
 
+std::vector<int> Bank::ServiceTimeForEachTaller()
+{
+    std::vector<int> avgServiceTime;
+    for (int i = 0; i < tallers.size(); i++)
+    {
+        avgServiceTime.push_back(tallers[i]->TotalServingTime());
+    }
+    return avgServiceTime;
+}
 
-
+std::vector<int> Bank::NumberOfServiedCustomerForEachTaller()
+{
+    std::vector<int> Nums;
+    for (int i = 0; i < tallers.size(); i++)
+    {
+        Nums.push_back(tallers[i]->NumberOfServiedCustomers());
+    }
+    return Nums;
+}

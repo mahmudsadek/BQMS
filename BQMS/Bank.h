@@ -22,5 +22,11 @@ public:
 	void CustomerTallerInteraction();
 	int AverageWaitingTime();
 	std::vector<int> AverageServiceTime();
+	std::vector<int> ServiceTimeForEachTaller();
+	int TotalWaitingTimeForCustomers() const;
+	int TotalServiceTime()const;
+	int avgServiceTimeForAll()const;
+	std::vector<int> NumberOfServiedCustomerForEachTaller();
+
 };
 
