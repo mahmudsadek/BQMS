@@ -13,6 +13,9 @@ public:
 	void DisplayCustomers(bool flag);
 	void AddCustomer();
 	void DisplayReport();
+	void MainMenu();
+	void TallersReport();
 	void Run();
+	void WriteToFile();
 };
 

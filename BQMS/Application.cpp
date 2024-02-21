@@ -1,6 +1,11 @@
 #include "Application.h"
 #include <iostream>
 #include <iomanip>
+#include <fstream>
+#include "Utility.h"
+
+
+
 using namespace std;
 
 Application::Application()
@@ -10,13 +15,19 @@ Application::Application()
 
 void Application::DisplayCustomers()
 {
+	system("cls");
 	priority_queue<Customer*, std::vector<Customer*>, Compare> tempQueue = bank->getCustomers();
+	system("cls");
+	cout << "\t --------------------------------|Customers Queue|-----------------------------------------\n";
+	cout << "\t| No.\tName\t\tAge\tPriority\tArrive Time \t\t\t\t   |\n";
+	cout << "\t ------------------------------------------------------------------------------------------\n";
+	int i = 1;
 	while (!tempQueue.empty())
 	{
-		cout << "Name : " << tempQueue.top()->getName() << "\t";
-		cout << "ARRTIME : " << (tempQueue.top()->getArrivingTime() - (tempQueue.top()->getArrivingTime() % 60))/60 << ":" << tempQueue.top()->getArrivingTime()%60 << "\t";
-		cout << "PRIORITY : " << tempQueue.top()->getPriority() << "\t";
-		cout << endl;
+		cout << "\t| " << i++ << "\t" << tempQueue.top()->getName() << "\t\t" << tempQueue.top()->getAge() << "\t   " << tempQueue.top()->getPriority() << "\t\t   ";
+		cout <<Utility::GetInHourFormat(tempQueue.top()->getArrivingTime()) << setw(36) << "|" << endl;
+
+		cout << "\t ------------------------------------------------------------------------------------------\n";
 		tempQueue.pop();
 	}
 	char stop;
@@ -26,17 +37,21 @@ void Application::DisplayCustomers()
 void Application::DisplayCustomers(bool flag)
 {
 	priority_queue<Customer*, std::vector<Customer*>, Compare> tempQueue = bank->getCustomers();
+	system("cls");
+	cout << "\t -----------------------------------------------| Customer Report |--------------------------------------------------------\n";
+	cout << "\t| No.\tName\t\tAge\tPriority\tArrive Time\tWait Time\tService Time\tLeave Time\tTaller No. |\n";
+	cout << "\t --------------------------------------------------------------------------------------------------------------------------\n";
+	int i = 1;
 	while (!tempQueue.empty())
 	{
-		cout << "Name : " << tempQueue.top()->getName() << "\t";
-		cout << "ARRTIME : " << (tempQueue.top()->getArrivingTime() - (tempQueue.top()->getArrivingTime() % 60)) / 60 << ":" << tempQueue.top()->getArrivingTime() % 60 << "\t";
-		cout << "PRIORITY : " << tempQueue.top()->getPriority() << "\t";
-		cout << "WAITITNGTIME : " << tempQueue.top()->getWitingTime() << "\t";
-		cout << "SERVICETIME : " << tempQueue.top()->getServiceTime()<< endl;
-
-		cout << endl;
+		cout << "\t| "  << i++ << "\t" <<tempQueue.top()->toString() << endl;
+		cout << "\t --------------------------------------------------------------------------------------------------------------------------\n";
 		tempQueue.pop();
 	}
+	cout << "\t| Total Customers : " << i-1 << "\t\t Total Wait Time : " << bank->TotalWaitingTimeForCustomers() <<"\t\t Total Service Time : " << bank->TotalServiceTime() << endl;
+	cout << "\t --------------------------------------------------------------------------------------------------------------------------\n";
+	cout << "\t\t\t " << "\t\t Averge Wait Time : " << bank->AverageWaitingTime() << "\t\t Average Service Time : " << bank->avgServiceTimeForAll() << endl;
+	cout << "\t --------------------------------------------------------------------------------------------------------------------------\n";
 }
 
 void Application::AddCustomer()
@@ -61,41 +76,53 @@ void Application::AddCustomer()
 	bank->AddCustomer(name,age,accType,arrTimeHour,arrTimeMin);
 }
 
+void Application::TallersReport()
+{
+	cout << "\n\n===========================================================================================================================================\n\n\n";
+	cout << "\t -------------------------------------------| Tallers Report |--------------------------------------------------------------\n";
+	cout << "\t| No. \t\t Service Time \t\t No. of Customers \t\t Avg. Service Time\t\t Utilization Rates  |\n";
+	cout << "\t ----------------------------------------------------------------------------------------------------------------------------\n";
+	vector<int> AvgServiceTime = bank->AverageServiceTime();
+	vector<int> ServiceTime = bank->ServiceTimeForEachTaller();
+	vector<int> numOfCustomers = bank->NumberOfServiedCustomerForEachTaller();
+
+	for (int i = 0; i < AvgServiceTime.size(); i++)
+	{
+		cout << "\t   " << i + 1 << " \t\t  " << ServiceTime[i] << " \t\t\t     " << numOfCustomers[i] << "\t\t\t\t     " << AvgServiceTime[i];
+		cout << "\t\t\t\t     " << setprecision(3) << ((float)ServiceTime[i] / 420) * 100 << " %" << "\n";
+		cout << "\t ----------------------------------------------------------------------------------------------------------------------------\n";
+	}
+	cout << "\n=============================================================================================================================================\n";
+}
 void Application::DisplayReport()
 {
 	bank->CustomerTallerInteraction();
 	DisplayCustomers(true);
-	int waitingTime = bank->AverageWaitingTime();
-	cout << "\n=====================================================\n";
-	cout << "\tAVERAGE WAITING TIME IS " << waitingTime << endl;
-	cout << "\n=====================================================\n";
-	cout << "\n=====================================================\n";
-	vector<int> serviceTime = bank->AverageServiceTime();
-	for (int i = 0; i < serviceTime.size(); i++)
-	{
-		cout << "\tAVERAGE SERVICE TIME FOR TALLER NUMBER " << i+1 << " IS " << serviceTime[i] << endl;
-	}
-	cout << "\n=====================================================\n";
+	TallersReport();
+	WriteToFile();
 	char k;
 	cin >> k;
 }
 
-void Application::Run()
+void Application::MainMenu()
 {
 	while (true)
 	{
-		std::cout << std::setw(50) << std::setfill('*') << "" << std::endl;
-		std::cout << std::setw(30) << std::setfill(' ') << "BANK QUEUE SYSTEM" << std::endl;
-		std::cout << std::setw(50) << std::setfill('*') << "" << std::endl;
+		system("cls");
+		cout << "\t\t\t=====================================================================\n";
+		cout <<"\t\t\t|\t\t\tBANK QUEUE SYSTEM\t\t\t    |\n";
+		cout << "\t\t\t=====================================================================\n\n\n";
+
+		cout << "\t\t\t|\t\tADD CUSTOMER MANUALLY    [Enter 1]\t\t    |" << endl;
+		cout << "\t\t\t|\t\tREAD CUSTOMERS FROM FILE [Enter 2]\t\t    |" << endl;
+		cout << "\t\t\t|\t\tDISPLAY CUSTOMERS        [Enter 3]\t\t    |" << endl;
+		cout << "\t\t\t|\t\tDISPLAY THE REPORT       [Enter 4]\t\t    |" << endl;
+		
 		int key;
-		cout << endl;
-		cout << std::setw(35) <<  std::setfill(' ') <<  "1 - ADD CUSTOMER     \n\n";
-		cout << std::setw(35) << "2 - ADD CUSTOMERS FROM FILE \n\n";
-		cout << std::setw(35) << "3 - DISPLAY CUSTOMERS \n\n";
-		cout << std::setw(35) << "4 - DISPLAY REPORT ABOUT THE SYSTEM\n\n";
-
-
+		cout << endl << "\t\t\t---------------------------------------------------------------------\n";
+		cout << "\t\t\t\t\t\tENTER YOUR CHIOCE: " ;
 		cin >> key;
+
 		switch (key)
 		{
 		case 1:
@@ -111,9 +138,57 @@ void Application::Run()
 			DisplayReport();
 			break;
 		default:
+			std::cout << "\t\t\t\t\t Invalid choice. Please try again." << std::endl;
 			break;
 		}
-
-
 	}
 }
+
+void Application::Run()
+{
+	MainMenu();
+}
+
+void Application::WriteToFile()
+{
+	std::ofstream reportFile;
+	reportFile.open("report.txt");
+	if (!reportFile)
+	{ 
+		cerr << "Error: file could not be opened" << endl;
+		exit(1);
+	}
+	priority_queue<Customer*, std::vector<Customer*>, Compare> tempQueue = bank->getCustomers();
+	reportFile << "\t -----------------------------------------------| Customer Report |--------------------------------------------------------\n";
+	reportFile << "\t| No.\tName\t\tAge\tPriority\tArrive Time\tWait Time\tService Time\tLeave Time\tTaller No. |\n";
+	reportFile << "\t --------------------------------------------------------------------------------------------------------------------------\n";
+	int i = 1;
+	while (!tempQueue.empty())
+	{
+		reportFile << "\t| " << i++ << "\t" << tempQueue.top()->toString() << endl;
+		reportFile << "\t --------------------------------------------------------------------------------------------------------------------------\n";
+		tempQueue.pop();
+	}
+	reportFile << "\t| Total Customers : " << i - 1 << "\t\t Total Wait Time : " << bank->TotalWaitingTimeForCustomers() << "\t\t Total Service Time : " << bank->TotalServiceTime() << endl;
+	reportFile << "\t --------------------------------------------------------------------------------------------------------------------------\n";
+	reportFile << "\t\t\t " << "\t\t Averge Wait Time : " << bank->AverageWaitingTime() << "\t\t Average Service Time : " << bank->avgServiceTimeForAll() << endl;
+	reportFile << "\t --------------------------------------------------------------------------------------------------------------------------\n";
+
+	reportFile << "\n\n===========================================================================================================================================\n\n\n";
+	reportFile << "\t -------------------------------------------| Tallers Report |--------------------------------------------------------------\n";
+	reportFile << "\t| No. \t\t Service Time \t\t No. of Customers \t\t Avg. Service Time\t\t Utilization Rates  |\n";
+	reportFile << "\t ----------------------------------------------------------------------------------------------------------------------------\n";
+	vector<int> AvgServiceTime = bank->AverageServiceTime();
+	vector<int> ServiceTime = bank->ServiceTimeForEachTaller();
+	vector<int> numOfCustomers = bank->NumberOfServiedCustomerForEachTaller();
+
+	for (int i = 0; i < AvgServiceTime.size(); i++)
+	{
+		reportFile << "\t   " << i + 1 << " \t\t  " << ServiceTime[i] << " \t\t\t     " << numOfCustomers[i] << "\t\t\t\t     " << AvgServiceTime[i];
+		reportFile << "\t\t\t\t     " << setprecision(3) << ((float)ServiceTime[i] / 420) * 100 << " %" << endl;
+		reportFile << "\t ----------------------------------------------------------------------------------------------------------------------------\n";
+	}
+	reportFile << "\n=============================================================================================================================================\n";
+	reportFile.close();
+}
+
